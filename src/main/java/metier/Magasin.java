@@ -19,13 +19,9 @@ public class Magasin {
 	@Column(name="adresseMag")
 	private String adresseMag;
 	
-	@ManyToMany(mappedBy = "magasins")
-	private Set<Produit> produits = new HashSet<>();
-	
 	public Magasin() {}
 	
-	public Magasin(int id, String nom, String adr) {
-		this.idMag = id; 
+	public Magasin(String nom, String adr) {
 		this.nomMag = nom; 
 		this.adresseMag = adr;
 	}
@@ -57,11 +53,4 @@ public class Magasin {
         this.adresseMag = adresseMag;
     }	
     
-    public Set<Produit> getProduits(){
-    	return this.produits;
-    }
-    
-    public void setProduits(Set<Produit> produits) {
-    	this.produits = produits;
-    }
 }

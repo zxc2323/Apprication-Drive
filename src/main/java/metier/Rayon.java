@@ -15,8 +15,7 @@ public class Rayon {
 	
 	public Rayon() {}
 	
-	public Rayon(int id, String nom) {
-		this.idRayon = id; 
+	public Rayon(String nom) {
 		this.nomRayon = nom;
 	}
 

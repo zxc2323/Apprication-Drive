@@ -13,7 +13,8 @@ public class Commande {
 	@Column(name="idCommande")
 	private int idCommande; 
 	
-	@Column(name="etatCommande")
+	@Enumerated(EnumType.STRING)
+	@Column(name="etatCommande", nullable = false)
 	private Etat etatCommande;
 	
 	@ManyToMany(mappedBy="commandes")
@@ -21,8 +22,7 @@ public class Commande {
 	
 	public Commande() {}
 	
-	public Commande(int id, Etat etat) {
-		this.idCommande = id; 
+	public Commande(Etat etat) {
 		this.etatCommande = etat;
 	}
 	
@@ -48,7 +48,7 @@ public class Commande {
     	return this.produits;
     }
     
-    public void setProduit(Set<Produit> produits) {
+    public void setProduits(Set<Produit> produits) {
     	this.produits = produits;
     }
 }

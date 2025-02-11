@@ -19,10 +19,6 @@ public class Panier {
 	
 	public Panier() {}
 	
-	public Panier(int id) {
-		this.idPanier = id; 
-	}
-	
 	public int getId() {
 		return this.idPanier;
 	}

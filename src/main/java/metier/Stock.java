@@ -11,22 +11,31 @@ public class Stock {
 	@Column(name="idStock")
 	private int idStock; 
 	
-	@Column(name="qteStock")
-	private int qteStock; 
-	
-	@Column(name="dateStock")
-	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date dateStock;
+	@ManyToOne
+    @JoinColumn(name="idProduit", referencedColumnName="idPro")
+    private Produit produit;
+
+    @ManyToOne
+    @JoinColumn(name="idMagasin", referencedColumnName="idMag")
+    private Magasin magasin;
+
+    @Column(name="qteStock")
+    private int qteStock;
+
+    @Column(name="dateStock")
+    @Temporal(TemporalType.DATE)
+    private Date dateStock;
 	
 	public Stock() {}
 	
-	public Stock(int id, int qte, Date date) {
-		this.idStock = id; 
-		this.qteStock = qte; 
-		this.dateStock = date;
-	}
-	
-	// Getter et Setter pour idStock
+	public Stock(Produit produit, Magasin magasin, int qteStock, Date dateStock) {
+        this.produit = produit;
+        this.magasin = magasin;
+        this.qteStock = qteStock;
+        this.dateStock = dateStock;
+    }
+
+    // Getters et setters
     public int getIdStock() {
         return idStock;
     }
@@ -35,7 +44,22 @@ public class Stock {
         this.idStock = idStock;
     }
 
-    // Getter et Setter pour qteStock
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
+    public Magasin getMagasin() {
+        return magasin;
+    }
+
+    public void setMagasin(Magasin magasin) {
+        this.magasin = magasin;
+    }
+
     public int getQteStock() {
         return qteStock;
     }
@@ -44,7 +68,6 @@ public class Stock {
         this.qteStock = qteStock;
     }
 
-    // Getter et Setter pour dateStock
     public Date getDateStock() {
         return dateStock;
     }

@@ -26,7 +26,7 @@ public class HibernateUtil
 			 * Entité.
 			 */
 			configuration.addAnnotatedClass(metier.Categorie.class);
-			configuration.addAnnotatedClass(metier.Client.class);
+			configuration.addAnnotatedClass(metier.Utilisateur.class);
 			configuration.addAnnotatedClass(metier.Commande.class);
 			configuration.addAnnotatedClass(metier.Contenir.class);
 			configuration.addAnnotatedClass(metier.ContenirId.class);

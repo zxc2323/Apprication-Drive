@@ -19,8 +19,7 @@ public class Categorie {
 
 	public Categorie() {}
 	
-	public Categorie(int id, String nom) {
-		this.idCate = id; 
+	public Categorie(String nom) {
 		this.nomCate = nom;
 	}
 

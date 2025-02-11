@@ -21,6 +21,14 @@ public class Contenir {
 	
 	public Contenir() {}
 	
+	public Contenir(Panier panier, Produit produit, int quantite) {
+	    this.id = new ContenirId(panier.getId(), produit.getIdPro());
+	    this.panier = panier;
+	    this.produit = produit;
+	    this.quantite = quantite;
+	}
+
+	
 	// Getter et Setter pour id
     public ContenirId getId() {
         return id;

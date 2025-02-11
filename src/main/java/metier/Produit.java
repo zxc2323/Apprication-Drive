@@ -48,12 +48,6 @@ public class Produit {
 	private Promotion promotion;
 	
 	@ManyToMany
-	@JoinTable(name="Posseder",
-	joinColumns=@JoinColumn(name="CodeProd"), 
-	inverseJoinColumns=@JoinColumn(name="CodeMag"))
-	private Set<Magasin> magasins = new HashSet<>();
-	
-	@ManyToMany
 	@JoinTable(name="Contenir", 
 	joinColumns=@JoinColumn(name="CodeProd"), 
 	inverseJoinColumns=@JoinColumn(name="CodeCommande"))
@@ -71,8 +65,7 @@ public class Produit {
 	
 	public Produit() {}
 	
-	public Produit(int id, String lib, double PrixU, double Prixkg, String nutriScore, double Pds, String condition) {
-		this.idPro = id; 
+	public Produit(String lib, double PrixU, double Prixkg, String nutriScore, double Pds, String condition) {
 		this.libellePro = lib; 
 		this.PrixUnitaire = PrixU; 
 		this.Prix_kg = Prixkg; 
@@ -171,15 +164,6 @@ public class Produit {
         this.promotion = promotion;
     }
 
-    // Getter et Setter pour magasins
-    public Set<Magasin> getMagasins() {
-        return magasins;
-    }
-
-    public void setMagasins(Set<Magasin> magasins) {
-        this.magasins = magasins;
-    }
-
     // Getter et Setter pour commandes
     public Set<Commande> getCommandes() {
         return commandes;
@@ -205,5 +189,20 @@ public class Produit {
 
     public void setContenir(Map<Panier, Contenir> contenir) {
         this.contenir = contenir;
+    }
+
+    // Méthode utilitaire pour ajouter une commande
+    public void ajouterCommande(Commande commande) {
+        this.commandes.add(commande);
+    }
+
+    // Méthode utilitaire pour ajouter une liste de course
+    public void ajouterListeCourse(ListeCourse listeCourse) {
+        this.liste_course.add(listeCourse);
+    }
+
+    // Méthode utilitaire pour ajouter un produit à un panier
+    public void ajouterAuPanier(Panier panier, Contenir contenir) {
+        this.contenir.put(panier, contenir);
     }
 }

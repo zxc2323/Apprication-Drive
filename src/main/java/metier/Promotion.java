@@ -27,8 +27,7 @@ public class Promotion {
 	
 	public Promotion() {}
 	
-	public Promotion(int id, String type, int valeur, Date datedeb, Date datefin) {
-		this.idPromo = id; 
+	public Promotion(String type, int valeur, Date datedeb, Date datefin) {
 		this.typePromo = type; 
 		this.valeurPromo = valeur; 
 		this.date_deb = datedeb; 

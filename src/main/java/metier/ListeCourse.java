@@ -21,8 +21,7 @@ public class ListeCourse {
 	
 	public ListeCourse() {}
 	
-	public ListeCourse(int id, String nom) {
-		this.idListe = id; 
+	public ListeCourse(String nom) {
 		this.nomListe = nom;
 	}
 	

@@ -3,7 +3,7 @@ package metier;
 import javax.persistence.*;
 
 @Entity(name="Utilisateur")
-public class Client {
+public class Utilisateur {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +19,15 @@ public class Client {
 		@Column(name="adresseUtil")
 		private String adresseUtil;
 		
-		@Column(name="mailUtil")
+		@Column(name="mailUtil", nullable = false, unique = true)
 		private String mailUtil;
 		
-		@Column(name="motDePasseUtil")
+		@Column(name="motDePasseUtil", nullable = false)
 		private String motDePasseUtil; 
 		
-		public Client() {}
+		public Utilisateur() {}
 		
-		public Client(int id, String prenom, String nom, String adresse, String mail, String mdp) {
-			this.idUtil = id; 
+		public Utilisateur(String prenom, String nom, String adresse, String mail, String mdp) {
 			this.prenomUtil = prenom; 
 			this.nomUtil = nom; 
 			this.adresseUtil = adresse; 
