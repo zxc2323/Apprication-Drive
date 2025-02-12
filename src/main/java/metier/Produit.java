@@ -47,21 +47,21 @@ public class Produit {
 	@JoinColumn(name="CodePromo")
 	private Promotion promotion;
 	
-	@ManyToMany
-	@JoinTable(name="Contenir", 
-	joinColumns=@JoinColumn(name="CodeProd"), 
-	inverseJoinColumns=@JoinColumn(name="CodeCommande"))
-	private Set<Commande> commandes = new HashSet<>(); 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodeCommande")
+	private Commande commande;
 	
-	@ManyToMany
-	@JoinTable(name="Englober", 
-	joinColumns=@JoinColumn(name="CodeProd"),
-	inverseJoinColumns=@JoinColumn(name="CodeListe"))
-	private Set<ListeCourse> liste_course = new HashSet<>(); 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodeStock")
+	private Stock stock;
 	
-	@OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
-	@MapKeyJoinColumn(name = "CodePanier")
-	private Map<Panier, Contenir> contenir = new HashMap<>();
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodePanier")
+	private Panier panier;
+		
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodeListeCourse")
+	private ListeCourse liste_course;
 	
 	public Produit() {}
 	
@@ -75,134 +75,173 @@ public class Produit {
 	}
 
 	// Getter et Setter pour idPro
-    public int getIdPro() {
-        return idPro;
-    }
+	public int getIdPro() {
+	    return idPro;
+	}
 
-    public void setIdPro(int idPro) {
-        this.idPro = idPro;
-    }
+	public void setIdPro(int idPro) {
+	    this.idPro = idPro;
+	}
 
-    // Getter et Setter pour libellePro
-    public String getLibellePro() {
-        return libellePro;
-    }
+	// Getter et Setter pour libellePro
+	public String getLibellePro() {
+	    return libellePro;
+	}
 
-    public void setLibellePro(String libellePro) {
-        this.libellePro = libellePro;
-    }
+	public void setLibellePro(String libellePro) {
+	    this.libellePro = libellePro;
+	}
 
-    // Getter et Setter pour PrixUnitaire
-    public double getPrixUnitaire() {
-        return PrixUnitaire;
-    }
+	// Getter et Setter pour PrixUnitaire
+	public double getPrixUnitaire() {
+	    return PrixUnitaire;
+	}
 
-    public void setPrixUnitaire(double PrixUnitaire) {
-        this.PrixUnitaire = PrixUnitaire;
-    }
+	public void setPrixUnitaire(double prixUnitaire) {
+	    this.PrixUnitaire = prixUnitaire;
+	}
 
-    // Getter et Setter pour Prix_kg
-    public double getPrix_kg() {
-        return Prix_kg;
-    }
+	// Getter et Setter pour Prix_kg
+	public double getPrixKg() {
+	    return Prix_kg;
+	}
 
-    public void setPrix_kg(double Prix_kg) {
-        this.Prix_kg = Prix_kg;
-    }
+	public void setPrixKg(double prixKg) {
+	    this.Prix_kg = prixKg;
+	}
 
-    // Getter et Setter pour Nutriscore
-    public String getNutriscore() {
-        return Nutriscore;
-    }
+	// Getter et Setter pour Nutriscore
+	public String getNutriscore() {
+	    return Nutriscore;
+	}
 
-    public void setNutriscore(String Nutriscore) {
-        this.Nutriscore = Nutriscore;
-    }
+	public void setNutriscore(String nutriscore) {
+	    this.Nutriscore = nutriscore;
+	}
 
-    // Getter et Setter pour PoidsPro
-    public double getPoidsPro() {
-        return PoidsPro;
-    }
+	// Getter et Setter pour PoidsPro
+	public double getPoidsPro() {
+	    return PoidsPro;
+	}
 
-    public void setPoidsPro(double PoidsPro) {
-        this.PoidsPro = PoidsPro;
-    }
+	public void setPoidsPro(double poidsPro) {
+	    this.PoidsPro = poidsPro;
+	}
 
-    // Getter et Setter pour conditionnementPro
-    public String getConditionnementPro() {
-        return conditionnementPro;
-    }
+	// Getter et Setter pour conditionnementPro
+	public String getConditionnementPro() {
+	    return conditionnementPro;
+	}
 
-    public void setConditionnementPro(String conditionnementPro) {
-        this.conditionnementPro = conditionnementPro;
-    }
+	public void setConditionnementPro(String conditionnementPro) {
+	    this.conditionnementPro = conditionnementPro;
+	}
 
- // Getter et Setter pour categorie
-    public Categorie getCategorie() {
-        return categorie;
-    }
+	// Getter et Setter pour categorie
+	public Categorie getCategorie() {
+	    return categorie;
+	}
 
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
-    }
+	public void setCategorie(Categorie categorie) {
+	    this.categorie = categorie;
+	}
 
-    // Getter et Setter pour rayon
-    public Rayon getRayon() {
-        return rayon;
-    }
+	// Getter et Setter pour rayon
+	public Rayon getRayon() {
+	    return rayon;
+	}
 
-    public void setRayon(Rayon rayon) {
-        this.rayon = rayon;
-    }
+	public void setRayon(Rayon rayon) {
+	    this.rayon = rayon;
+	}
 
-    // Getter et Setter pour promotion
-    public Promotion getPromotion() {
-        return promotion;
-    }
+	// Getter et Setter pour promotion
+	public Promotion getPromotion() {
+	    return promotion;
+	}
 
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
-    }
+	public void setPromotion(Promotion promotion) {
+	    this.promotion = promotion;
+	}
 
-    // Getter et Setter pour commandes
-    public Set<Commande> getCommandes() {
-        return commandes;
-    }
+	// Getter et Setter pour commande
+	public Commande getCommande() {
+	    return commande;
+	}
 
-    public void setCommandes(Set<Commande> commandes) {
-        this.commandes = commandes;
-    }
+	public void setCommande(Commande commande) {
+	    this.commande = commande;
+	}
 
-    // Getter et Setter pour liste_course
-    public Set<ListeCourse> getListe_course() {
-        return liste_course;
-    }
+	// Getter et Setter pour stock
+	public Stock getStock() {
+	    return stock;
+	}
 
-    public void setListe_course(Set<ListeCourse> liste_course) {
-        this.liste_course = liste_course;
-    }
+	public void setStock(Stock stock) {
+	    this.stock = stock;
+	}
 
-    // Getter et Setter pour contenir
-    public Map<Panier, Contenir> getContenir() {
-        return contenir;
-    }
+	// Getter et Setter pour panier
+	public Panier getPanier() {
+	    return panier;
+	}
 
-    public void setContenir(Map<Panier, Contenir> contenir) {
-        this.contenir = contenir;
-    }
+	public void setPanier(Panier panier) {
+	    this.panier = panier;
+	}
 
-    // Méthode utilitaire pour ajouter une commande
-    public void ajouterCommande(Commande commande) {
-        this.commandes.add(commande);
-    }
+	// Getter et Setter pour liste_course
+	public ListeCourse getListeCourse() {
+	    return liste_course;
+	}
 
-    // Méthode utilitaire pour ajouter une liste de course
-    public void ajouterListeCourse(ListeCourse listeCourse) {
-        this.liste_course.add(listeCourse);
-    }
+	public void setListeCourse(ListeCourse listeCourse) {
+	    this.liste_course = listeCourse;
+	}
 
-    // Méthode utilitaire pour ajouter un produit à un panier
-    public void ajouterAuPanier(Panier panier, Contenir contenir) {
-        this.contenir.put(panier, contenir);
-    }
+	// Méthode pour appliquer une promotion à un produit
+	public void appliquerPromotion(Promotion promo) {
+	    this.promotion = promo;
+	}
+
+	// Méthode pour enlever une promotion du produit
+	public void enleverPromotion() {
+	    this.promotion = null;
+	}
+
+	// Méthode pour vérifier si le produit est en promotion
+	public boolean estEnPromotion() {
+	    return this.promotion != null;
+	}
+
+	// Méthode pour obtenir le prix après promotion (exemple avec un pourcentage de réduction)
+	public double getPrixApresPromotion() {
+	    if (this.promotion != null) {
+	        return this.PrixUnitaire * (1 - this.promotion.getValeurPromo() / 100.0);
+	    }
+	    return this.PrixUnitaire;
+	}
+
+	// Méthode pour savoir si un produit est en stock
+	public boolean estDisponibleEnStock() {
+	    return this.stock != null;
+	}
+
+	// Méthode toString pour afficher un produit
+	@Override
+	public String toString() {
+	    return "Produit{" +
+	            "id=" + idPro +
+	            ", libelle='" + libellePro + '\'' +
+	            ", prixUnitaire=" + PrixUnitaire +
+	            ", nutriscore='" + Nutriscore + '\'' +
+	            ", poids=" + PoidsPro +
+	            ", conditionnement='" + conditionnementPro + '\'' +
+	            ", categorie=" + (categorie != null ? categorie.getNomCate() : "Aucune") +
+	            ", rayon=" + (rayon != null ? rayon.getNomRayon() : "Aucun") +
+	            ", en promotion=" + (promotion != null ? "Oui" : "Non") +
+	            '}';
+	}
+
 }

@@ -18,21 +18,24 @@ public class ContenirId implements java.io.Serializable{
 		this.idPanier = CodePa; 
 	}
 	
+	// Getter et Setter pour idProd
 	public int getIdProd() {
-		return this.idProd;
+	    return idProd;
 	}
-	
-	public void setIdProd(int code) {
-		this.idProd = code; 
+
+	public void setIdProd(int idProd) {
+	    this.idProd = idProd;
 	}
-	
+
+	// Getter et Setter pour idPanier
 	public int getIdPanier() {
-		return this.idPanier;
+	    return idPanier;
 	}
-	
-	public void setIdPanier(int code) {
-		this.idPanier = code; 
+
+	public void setIdPanier(int idPanier) {
+	    this.idPanier = idPanier;
 	}
+
 	
 	// hashCode() et equals() doivent être implémentés pour une clé composite
 }

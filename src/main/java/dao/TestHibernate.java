@@ -21,26 +21,37 @@ public class TestHibernate
 	 * Programme de test.
 	 */
 	public static void main(String[] args) {
-	    try {
-	    
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+		 try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+		        Transaction t = session.beginTransaction();
+
+		        for (int i = 1; i <= 10; i++) {
+		            // Charger le produit, la catégorie et le rayon correspondants à l'ID i
+		            Produit produit = session.get(Produit.class, i);
+		            Categorie categorie = session.get(Categorie.class, i);
+		            Rayon rayon = session.get(Rayon.class, i);
+
+		            // Vérifier si les entités existent bien
+		            if (produit != null && categorie != null && rayon != null) {
+		                // Assigner la catégorie et le rayon au produit
+		                produit.setCategorie(categorie);
+		                produit.setRayon(rayon);
+
+		                // Mettre à jour le produit en base de données
+		                session.update(produit);
+		            } else {
+		                System.out.println("Erreur : Produit, Catégorie ou Rayon introuvable pour l'ID " + i);
+		            }
+		        }
+
+		        t.commit(); // Valider toutes les mises à jour en une seule transaction
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 	}
 	
 	/*
 	 *  Méthodes pour utiliser la classe Produit
 	 */
-	public static String loadStringProduit(int id) {
-		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-			session.beginTransaction();
-			Produit e = session.load(Produit.class, id);
-			String d = e.toString();
-			session.close();
-			return d; 
-		}
-	}
-	
 	public static Produit loadProduit(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
@@ -79,6 +90,15 @@ public class TestHibernate
 		return e;
 	}
 	
+	public static Commande loadCommande(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Commande e = session.get(Commande.class, id);
+			session.close();
+			return e; 
+		}
+	}
+	
 	/*
 	 * Méthodes pour utiliser la classe Contenir
 	 */
@@ -93,6 +113,15 @@ public class TestHibernate
 	        ex.printStackTrace();
 	    }
 		return e;
+	}
+	
+	public static Contenir loadContenir(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Contenir e = session.get(Contenir.class, id);
+			session.close();
+			return e; 
+		}
 	}
 	
 	/*
@@ -111,6 +140,16 @@ public class TestHibernate
 		return e;
 	}
 	
+	public static ContenirId loadContenirId(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			ContenirId e = session.get(ContenirId.class, id);
+			session.close();
+			return e; 
+		}
+	}
+	
+	
 	/*
 	 * Méthodes pour utiliser la classe ListeCourse
 	 */
@@ -125,6 +164,15 @@ public class TestHibernate
 	        ex.printStackTrace();
 	    }
 		return e;
+	}
+	
+	public static ListeCourse loadListeCourse(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			ListeCourse e = session.get(ListeCourse.class, id);
+			session.close();
+			return e; 
+		}
 	}
 	
 	/*
@@ -143,6 +191,15 @@ public class TestHibernate
 		return e;
 	}
 	
+	public static Magasin loadMagasin(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Magasin e = session.get(Magasin.class, id);
+			session.close();
+			return e; 
+		}
+	}
+	
 	/*
 	 * Méthodes pour utiliser la classe Panier
 	 */
@@ -158,6 +215,15 @@ public class TestHibernate
 	    }
 		return e;
 	} 
+	
+	public static Panier loadPanier(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Panier e = session.get(Panier.class, id);
+			session.close();
+			return e; 
+		}
+	}
 	
 	/*
 	 * Méthodes pour utiliser la classe Categorie
@@ -175,6 +241,15 @@ public class TestHibernate
 		return e;
 	} 
 	
+	public static Categorie loadCategorie(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Categorie e = session.get(Categorie.class, id);
+			session.close();
+			return e; 
+		}
+	}
+	
 	/*
 	 * Méthodes pour utiliser la classe Promotion
 	 */
@@ -190,6 +265,15 @@ public class TestHibernate
 	    }
 		return e;
 	} 
+	
+	public static Promotion loadPromotion(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Promotion e = session.get(Promotion.class, id);
+			session.close();
+			return e; 
+		}
+	}
 	
 	/*
 	 * Méthodes pour utiliser la classe Rayon
@@ -207,11 +291,20 @@ public class TestHibernate
 		return e;
 	}
 	
+	public static Rayon loadRayon(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Rayon e = session.get(Rayon.class, id);
+			session.close();
+			return e; 
+		}
+	}
+	
 	/*
 	 * Méthodes pour utiliser la classe Stock
 	 */
-	public static Stock createStock(Produit produit, Magasin magasin, int qteStock, Date dateStock) {
-		Stock e = new Stock(produit, magasin, qteStock, dateStock); 
+	public static Stock createStock(Set<Produit> produits, Magasin magasin, int qteStock, Date dateStock) {
+		Stock e = new Stock(produits, magasin, qteStock, dateStock); 
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			Transaction t = session.beginTransaction();
 			session.save(e); 
@@ -221,6 +314,15 @@ public class TestHibernate
 	        ex.printStackTrace();
 	    }
 		return e;
+	}
+	
+	public static Stock loadStock(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Stock e = session.get(Stock.class, id);
+			session.close();
+			return e; 
+		}
 	}
 	
 	/*
@@ -237,5 +339,14 @@ public class TestHibernate
 	        ex.printStackTrace();
 	    }
 		return e;
+	}
+	
+	public static Utilisateur loadUtilisateur(int id) {
+		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+			session.beginTransaction();
+			Utilisateur e = session.get(Utilisateur.class, id);
+			session.close();
+			return e; 
+		}
 	}
 } /*----- Fin de la classe TestHibernate -----*/
