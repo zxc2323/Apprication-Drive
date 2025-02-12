@@ -1,0 +1,82 @@
+Index: src/main/webapp/WEB-INF/web.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<web-app version=\"3.1\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd\">\r\n\r\n    <display-name>TestApp</display-name>\r\n\r\n    <servlet>\r\n        <servlet-name>TestServlet</servlet-name>\r\n        <servlet-class>com.example.TestServlet</servlet-class>\r\n    </servlet>\r\n\r\n    <servlet-mapping>\r\n        <servlet-name>TestServlet</servlet-name>\r\n        <url-pattern>/test</url-pattern>\r\n    </servlet-mapping>\r\n\r\n</web-app>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/WEB-INF/web.xml b/src/main/webapp/WEB-INF/web.xml
+--- a/src/main/webapp/WEB-INF/web.xml	(revision 4f3858add4dbae38d9fcb93b765b1c5037622ea0)
++++ b/src/main/webapp/WEB-INF/web.xml	(date 1739357900424)
+@@ -3,7 +3,7 @@
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+ 
+-    <display-name>TestApp</display-name>
++    <display-name>ApplicationDrive</display-name>
+ 
+     <servlet>
+         <servlet-name>TestServlet</servlet-name>
+Index: src/main/java/dao/TestHibernate.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dao;\r\n\r\n\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.util.Date;\r\nimport java.util.Set;\r\n\r\nimport org.hibernate.Session;\r\nimport org.hibernate.SessionFactory;\r\nimport org.hibernate.Transaction;\r\n\r\nimport metier.*;\r\n\r\n/**\r\n * Classe de test pour Hibernate.\r\n */\r\npublic class TestHibernate\r\n{\r\n\t/**\r\n\t * Programme de test.\r\n\t */\r\n\tpublic static void main(String[] args) {\r\n\t    try {\r\n\t    \r\n\t    } catch (Exception e) {\r\n\t        e.printStackTrace();\r\n\t    }\r\n\t}\r\n\t\r\n\t/*\r\n\t *  Méthodes pour utiliser la classe Produit\r\n\t */\r\n\tpublic static String loadStringProduit(int id) {\r\n\t\ttry(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tsession.beginTransaction();\r\n\t\t\tProduit e = session.load(Produit.class, id);\r\n\t\t\tString d = e.toString();\r\n\t\t\tsession.close();\r\n\t\t\treturn d; \r\n\t\t}\r\n\t}\r\n\t\r\n\tpublic static Produit loadProduit(int id) {\r\n\t\ttry(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tsession.beginTransaction();\r\n\t\t\tProduit e = session.get(Produit.class, id);\r\n\t\t\tsession.close();\r\n\t\t\treturn e; \r\n\t\t}\r\n\t}\r\n\t\r\n\tpublic static Produit createProduit(String lib, double PrixU, double Prixkg, String nutriScore, double Pds, String condition) {\r\n\t\tProduit e = new Produit(lib, PrixU, Prixkg, nutriScore, Pds, condition); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Commande\r\n\t */\r\n\tpublic static Commande createCommande(Etat etat) {\r\n\t\tCommande e = new Commande(etat); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Contenir\r\n\t */\r\n\tpublic static Contenir createContenir(Panier panier, Produit produit, int quantite) {\r\n\t\tContenir e = new Contenir(panier, produit, quantite); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe ContenirId\r\n\t */\r\n\tpublic static ContenirId createContenirId(int CodeP, int CodePa) {\r\n\t\tContenirId e = new ContenirId(CodeP, CodePa); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe ListeCourse\r\n\t */\r\n\tpublic static ListeCourse createListeCourse(String nom) {\r\n\t\tListeCourse e = new ListeCourse(nom); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Magasin\r\n\t */\r\n\tpublic static Magasin createMagasin(String nom, String adr) {\r\n\t\tMagasin e = new Magasin(nom, adr); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Panier\r\n\t */\r\n\tpublic static Panier createPanier() {\r\n\t\tPanier e = new Panier(); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t} \r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Categorie\r\n\t */\r\n\tpublic static Categorie createCategorie(String nom) {\r\n\t\tCategorie e = new Categorie(nom); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t} \r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Promotion\r\n\t */\r\n\tpublic static Promotion createPromotion(String type, int valeur, Date datedeb, Date datefin) {\r\n\t\tPromotion e = new Promotion(type, valeur, datedeb, datefin); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t} \r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Rayon\r\n\t */\r\n\tpublic static Rayon createRayon(String nom) {\r\n\t\tRayon e = new Rayon(nom); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Stock\r\n\t */\r\n\tpublic static Stock createStock(Produit produit, Magasin magasin, int qteStock, Date dateStock) {\r\n\t\tStock e = new Stock(produit, magasin, qteStock, dateStock); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n\t\r\n\t/*\r\n\t * Méthodes pour utiliser la classe Utilisateur\r\n\t */\r\n\tpublic static Utilisateur createUtilisateur(String prenom, String nom, String adresse, String mail, String mdp) {\r\n\t\tUtilisateur e = new Utilisateur(prenom, nom, adresse, mail, mdp); \r\n\t\ttry (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){\r\n\t\t\tTransaction t = session.beginTransaction();\r\n\t\t\tsession.save(e); \r\n\t\t\tt.commit(); \r\n\t\t\tsession.close(); \r\n\t\t} catch (Exception ex) {\r\n\t        ex.printStackTrace();\r\n\t    }\r\n\t\treturn e;\r\n\t}\r\n} /*----- Fin de la classe TestHibernate -----*/\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/dao/TestHibernate.java b/src/main/java/dao/TestHibernate.java
+--- a/src/main/java/dao/TestHibernate.java	(revision 4f3858add4dbae38d9fcb93b765b1c5037622ea0)
++++ b/src/main/java/dao/TestHibernate.java	(date 1739352818484)
+@@ -22,7 +22,7 @@
+ 	 */
+ 	public static void main(String[] args) {
+ 	    try {
+-	    
++	    loadProduit(1);
+ 	    } catch (Exception e) {
+ 	        e.printStackTrace();
+ 	    }
+@@ -44,9 +44,17 @@
+ 	public static Produit loadProduit(int id) {
+ 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+ 			session.beginTransaction();
+-			Produit e = session.get(Produit.class, id);
++			Produit p = session.get(Produit.class, id);
++			System.out.println("---load un produit---");
++			System.out.println("id: " + p.getIdPro());
++			System.out.println("libelle: " + p.getLibellePro());
++			System.out.println("Nutriscore: " + p.getNutriscore());
++			System.out.println("Poids: " + p.getPoidsPro());
++			System.out.println("Prix Unitaire: " + p.getPrixUnitaire());
++			System.out.println("Prix par Kg: " + p.getPrix_kg());
++			System.out.println("Conditionnement: " + p.getConditionnementPro());
+ 			session.close();
+-			return e; 
++			return p;
+ 		}
+ 	}
+ 	
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n \t<modelVersion>4.0.0</modelVersion>\r\n\r\n\t<groupId>miage.ipm</groupId>\r\n\t<artifactId>ProjetDAI</artifactId>\r\n\t<version>0.0.1</version>\r\n\t<packaging>war</packaging>\r\n\r\n\t<name>ProjetDAI</name>\r\n  \r\n\t<properties>\r\n\t\t<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n\t\t<maven.compiler.source>1.8</maven.compiler.source>\r\n\t\t<maven.compiler.target>1.8</maven.compiler.target>\r\n\t</properties>\r\n\r\n\t<dependencies>\r\n\t\t<dependency>\r\n\t\t    <groupId>mysql</groupId>\r\n\t\t    <artifactId>mysql-connector-java</artifactId>\r\n\t\t    <version>8.0.28</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.hibernate</groupId>\r\n\t\t\t<artifactId>hibernate-core</artifactId>\r\n\t\t\t<version>5.6.4.Final</version>\r\n\t\t</dependency>\r\n\t</dependencies>\r\n\r\n\t<build>\r\n    \t<finalName>ProjetDAI</finalName>\r\n\t\t<pluginManagement>\r\n  \t\t\t<plugins>\r\n    \t\t\t<plugin>\r\n\t\t        \t<artifactId>maven-clean-plugin</artifactId>\r\n\t\t          \t<version>3.1.0</version>\r\n    \t\t\t</plugin>\r\n    \t\t\t<plugin>\r\n      \t\t\t\t<artifactId>maven-resources-plugin</artifactId>\r\n      \t\t\t\t<version>3.2.0</version>\r\n    \t\t\t</plugin>\r\n    \t\t\t<plugin>\r\n      \t\t\t\t<artifactId>maven-compiler-plugin</artifactId>\r\n      \t\t\t\t<version>3.9.0</version>\r\n    \t\t\t</plugin>\r\n        \t\t<plugin>\r\n          \t\t\t<artifactId>maven-surefire-plugin</artifactId>\r\n          \t\t\t<version>2.22.2</version>\r\n        \t\t</plugin>\r\n        \t\t<plugin>\r\n          \t\t\t<artifactId>maven-war-plugin</artifactId>\r\n          \t\t\t<version>3.3.2</version>\r\n        \t\t</plugin>\r\n        \t\t<plugin>\r\n          \t\t\t<artifactId>maven-install-plugin</artifactId>\r\n          \t\t\t<version>2.5.2</version>\r\n        \t\t</plugin>\r\n        \t\t<plugin>\r\n          \t\t\t<artifactId>maven-deploy-plugin</artifactId>\r\n          \t\t\t<version>2.8.2</version>\r\n        \t\t</plugin>\r\n      \t\t</plugins>\r\n    \t</pluginManagement>\r\n\t</build>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 4f3858add4dbae38d9fcb93b765b1c5037622ea0)
++++ b/pom.xml	(date 1739298151020)
+@@ -28,6 +28,13 @@
+ 			<artifactId>hibernate-core</artifactId>
+ 			<version>5.6.4.Final</version>
+ 		</dependency>
++			<dependency>
++				<groupId>javax.servlet</groupId>
++				<artifactId>javax.servlet-api</artifactId>
++				<version>4.0.1</version>
++				<scope>provided</scope>
++			</dependency>
++
+ 	</dependencies>
+ 
+ 	<build>
