@@ -16,7 +16,11 @@ public class ListeCourse {
 	@Column(name="nomListe")
 	private String nomListe;
 	
-	@ManyToMany(mappedBy="liste_course")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodeUtil")
+	private Utilisateur utilisateur;
+	
+	@OneToMany(mappedBy="liste_course")
 	private Set<Produit> produits = new HashSet<>();
 	
 	public ListeCourse() {}
@@ -25,27 +29,63 @@ public class ListeCourse {
 		this.nomListe = nom;
 	}
 	
-	public int getId() {
-		return this.idListe;
+	// Getter et Setter pour idListe
+	public int getIdListe() {
+	    return idListe;
 	}
-	
-	public void setId(int id) {
-		this.idListe = id; 
+
+	public void setIdListe(int idListe) {
+	    this.idListe = idListe;
 	}
-	
-	public String getNom() {
-		return this.nomListe; 
+
+	// Getter et Setter pour nomListe
+	public String getNomListe() {
+	    return nomListe;
 	}
-	
-	public void setNom(String nom) {
-		this.nomListe = nom; 
+
+	public void setNomListe(String nomListe) {
+	    this.nomListe = nomListe;
 	}
-	
-	public Set<Produit> getProduits(){
-		return this.produits;
+
+	// Getter et Setter pour utilisateur
+	public Utilisateur getUtilisateur() {
+	    return utilisateur;
 	}
-	
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+	    this.utilisateur = utilisateur;
+	}
+
+	// Getter et Setter pour produits
+	public Set<Produit> getProduits() {
+	    return produits;
+	}
+
 	public void setProduits(Set<Produit> produits) {
-		this.produits = produits;
+	    this.produits = produits;
 	}
+
+	// Méthode pour ajouter un produit
+	public void addProduit(Produit produit) {
+	    this.produits.add(produit);
+	    produit.setListeCourse(this);
+	}
+
+	// Méthode pour supprimer un produit
+	public void removeProduit(Produit produit) {
+	    this.produits.remove(produit);
+	    produit.setListeCourse(null);
+	}
+
+	// Méthode toString pour afficher les informations de la liste
+	@Override
+	public String toString() {
+	    return "ListeCourse{" +
+	            "idListe=" + idListe +
+	            ", nomListe='" + nomListe + '\'' +
+	            ", utilisateur=" + utilisateur.getNomUtil() + " " + utilisateur.getPrenomUtil() +
+	            ", nombre de produits=" + produits.size() +
+	            '}';
+	}
+
 }

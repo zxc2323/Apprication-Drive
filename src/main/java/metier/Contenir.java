@@ -22,14 +22,14 @@ public class Contenir {
 	public Contenir() {}
 	
 	public Contenir(Panier panier, Produit produit, int quantite) {
-	    this.id = new ContenirId(panier.getId(), produit.getIdPro());
+	    this.id = new ContenirId(panier.getIdPanier(), produit.getIdPro());
 	    this.panier = panier;
 	    this.produit = produit;
 	    this.quantite = quantite;
 	}
 
 	
-	// Getter et Setter pour id
+	// Getters et Setters
     public ContenirId getId() {
         return id;
     }
@@ -38,7 +38,6 @@ public class Contenir {
         this.id = id;
     }
 
-    // Getter et Setter pour quantite
     public int getQuantite() {
         return quantite;
     }
@@ -47,7 +46,6 @@ public class Contenir {
         this.quantite = quantite;
     }
 
-    // Getter et Setter pour panier
     public Panier getPanier() {
         return panier;
     }
@@ -56,12 +54,22 @@ public class Contenir {
         this.panier = panier;
     }
 
-    // Getter et Setter pour produit
     public Produit getProduit() {
         return produit;
     }
 
     public void setProduit(Produit produit) {
         this.produit = produit;
+    }
+
+    // Méthode toString pour afficher les informations
+    @Override
+    public String toString() {
+        return "Contenir{" +
+                "id=" + id +
+                ", quantite=" + quantite +
+                ", panier=" + panier.getIdPanier() +
+                ", produit=" + produit.getLibellePro() +
+                '}';
     }
 }

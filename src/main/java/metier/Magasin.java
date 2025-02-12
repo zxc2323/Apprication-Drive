@@ -19,6 +19,12 @@ public class Magasin {
 	@Column(name="adresseMag")
 	private String adresseMag;
 	
+	@OneToMany(mappedBy="magasin")
+	private Set<Stock> stocks;
+	
+	@OneToMany(mappedBy="magasin")
+	private Set<Commande> commandes = new HashSet<>();
+	
 	public Magasin() {}
 	
 	public Magasin(String nom, String adr) {
@@ -27,30 +33,84 @@ public class Magasin {
 	}
 
 	// Getter et Setter pour idMag
-    public int getIdMag() {
-        return idMag;
-    }
+	public int getIdMag() {
+	    return idMag;
+	}
 
-    public void setIdMag(int idMag) {
-        this.idMag = idMag;
-    }
+	public void setIdMag(int idMag) {
+	    this.idMag = idMag;
+	}
 
-    // Getter et Setter pour nomMag
-    public String getNomMag() {
-        return nomMag;
-    }
+	// Getter et Setter pour nomMag
+	public String getNomMag() {
+	    return nomMag;
+	}
 
-    public void setNomMag(String nomMag) {
-        this.nomMag = nomMag;
-    }
+	public void setNomMag(String nomMag) {
+	    this.nomMag = nomMag;
+	}
 
-    // Getter et Setter pour adresseMag
-    public String getAdresseMag() {
-        return adresseMag;
-    }
+	// Getter et Setter pour adresseMag
+	public String getAdresseMag() {
+	    return adresseMag;
+	}
 
-    public void setAdresseMag(String adresseMag) {
-        this.adresseMag = adresseMag;
-    }	
-    
+	public void setAdresseMag(String adresseMag) {
+	    this.adresseMag = adresseMag;
+	}
+
+	// Getter et Setter pour stocks
+	public Set<Stock> getStocks() {
+	    return stocks;
+	}
+
+	public void setStocks(Set<Stock> stocks) {
+	    this.stocks = stocks;
+	}
+
+	// Méthode pour ajouter un stock
+	public void addStock(Stock stock) {
+	    this.stocks.add(stock);
+	    stock.setMagasin(this);
+	}
+
+	// Méthode pour supprimer un stock
+	public void removeStock(Stock stock) {
+	    this.stocks.remove(stock);
+	    stock.setMagasin(null);
+	}
+
+	// Getter et Setter pour commandes
+	public Set<Commande> getCommandes() {
+	    return commandes;
+	}
+
+	public void setCommandes(Set<Commande> commandes) {
+	    this.commandes = commandes;
+	}
+
+	// Méthode pour ajouter une commande
+	public void addCommande(Commande commande) {
+	    this.commandes.add(commande);
+	    commande.setMagasin(this);
+	}
+
+	// Méthode pour supprimer une commande
+	public void removeCommande(Commande commande) {
+	    this.commandes.remove(commande);
+	    commande.setMagasin(null);
+	}
+
+	// Méthode toString pour afficher les informations du magasin
+	@Override
+	public String toString() {
+	    return "Magasin{" +
+	            "id=" + idMag +
+	            ", nom='" + nomMag + '\'' +
+	            ", adresse='" + adresseMag + '\'' +
+	            ", nombre de stocks=" + (stocks != null ? stocks.size() : 0) +
+	            ", nombre de commandes=" + (commandes != null ? commandes.size() : 0) +
+	            '}';
+	}
+
 }

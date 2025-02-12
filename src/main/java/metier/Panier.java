@@ -1,7 +1,9 @@
 package metier;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -13,25 +15,62 @@ public class Panier {
 	@Column(name="idPanier")
 	private int idPanier; 
 	
-	@OneToMany(mappedBy = "panier", cascade = CascadeType.ALL)
-	@MapKeyJoinColumn(name = "CodeProd")
-	private Map<Produit, Contenir> contenir = new HashMap<>();
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodeUtil")
+	private Utilisateur utilisateur;
+	
+	@OneToMany(mappedBy="panier")
+	private Set<Produit> produits = new HashSet<>();
 	
 	public Panier() {}
 	
-	public int getId() {
-		return this.idPanier;
+	// Getter et Setter pour idPanier
+	public int getIdPanier() {
+	    return idPanier;
 	}
-	
-	public void setId(int id) {
-		this.idPanier = id;
+
+	public void setIdPanier(int idPanier) {
+	    this.idPanier = idPanier;
 	}
-	
-	public Map<Produit, Contenir> getContenir(){
-		return this.contenir;
+
+	// Getter et Setter pour utilisateur
+	public Utilisateur getUtilisateur() {
+	    return utilisateur;
 	}
-	
-	public void setContenir(Map<Produit, Contenir> contenir) {
-		this.contenir = contenir;
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+	    this.utilisateur = utilisateur;
 	}
+
+	// Getter et Setter pour produits
+	public Set<Produit> getProduits() {
+	    return produits;
+	}
+
+	public void setProduits(Set<Produit> produits) {
+	    this.produits = produits;
+	}
+
+	// Méthode pour ajouter un produit
+	public void addProduit(Produit produit) {
+	    this.produits.add(produit);
+	    produit.setPanier(this);
+	}
+
+	// Méthode pour supprimer un produit
+	public void removeProduit(Produit produit) {
+	    this.produits.remove(produit);
+	    produit.setPanier(null);
+	}
+
+	// Méthode toString pour afficher les informations du panier
+	@Override
+	public String toString() {
+	    return "Panier{" +
+	            "idPanier=" + idPanier +
+	            ", utilisateur=" + utilisateur.getNomUtil() + " " + utilisateur.getPrenomUtil() +
+	            ", nombre de produits=" + produits.size() +
+	            '}';
+	}
+
 }

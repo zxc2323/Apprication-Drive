@@ -2,6 +2,8 @@ package metier;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name="Stock")
 public class Stock {
@@ -10,14 +12,6 @@ public class Stock {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idStock")
 	private int idStock; 
-	
-	@ManyToOne
-    @JoinColumn(name="idProduit", referencedColumnName="idPro")
-    private Produit produit;
-
-    @ManyToOne
-    @JoinColumn(name="idMagasin", referencedColumnName="idMag")
-    private Magasin magasin;
 
     @Column(name="qteStock")
     private int qteStock;
@@ -25,54 +19,95 @@ public class Stock {
     @Column(name="dateStock")
     @Temporal(TemporalType.DATE)
     private Date dateStock;
+    
+	@OneToMany(mappedBy="stock")
+    private Set<Produit> produits = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name="idMagasin", referencedColumnName="idMag")
+    private Magasin magasin;
 	
 	public Stock() {}
 	
-	public Stock(Produit produit, Magasin magasin, int qteStock, Date dateStock) {
-        this.produit = produit;
+	public Stock(Set<Produit> produits, Magasin magasin, int qteStock, Date dateStock) {
+        this.produits = produits;
         this.magasin = magasin;
         this.qteStock = qteStock;
         this.dateStock = dateStock;
     }
 
-    // Getters et setters
-    public int getIdStock() {
-        return idStock;
-    }
+	// Getter et Setter pour idStock
+	public int getIdStock() {
+	    return idStock;
+	}
 
-    public void setIdStock(int idStock) {
-        this.idStock = idStock;
-    }
+	public void setIdStock(int idStock) {
+	    this.idStock = idStock;
+	}
 
-    public Produit getProduit() {
-        return produit;
-    }
+	// Getter et Setter pour qteStock
+	public int getQteStock() {
+	    return qteStock;
+	}
 
-    public void setProduit(Produit produit) {
-        this.produit = produit;
-    }
+	public void setQteStock(int qteStock) {
+	    this.qteStock = qteStock;
+	}
 
-    public Magasin getMagasin() {
-        return magasin;
-    }
+	// Getter et Setter pour dateStock
+	public Date getDateStock() {
+	    return dateStock;
+	}
 
-    public void setMagasin(Magasin magasin) {
-        this.magasin = magasin;
-    }
+	public void setDateStock(Date dateStock) {
+	    this.dateStock = dateStock;
+	}
 
-    public int getQteStock() {
-        return qteStock;
-    }
+	// Getter et Setter pour produits
+	public Set<Produit> getProduits() {
+	    return produits;
+	}
 
-    public void setQteStock(int qteStock) {
-        this.qteStock = qteStock;
-    }
+	public void setProduits(Set<Produit> produits) {
+	    this.produits = produits;
+	}
 
-    public Date getDateStock() {
-        return dateStock;
-    }
+	// Méthode pour ajouter un produit au stock
+	public void addProduit(Produit produit) {
+	    this.produits.add(produit);
+	    produit.setStock(this);
+	}
 
-    public void setDateStock(Date dateStock) {
-        this.dateStock = dateStock;
-    }
+	// Méthode pour supprimer un produit du stock
+	public void removeProduit(Produit produit) {
+	    this.produits.remove(produit);
+	    produit.setStock(null);
+	}
+
+	// Getter et Setter pour magasin
+	public Magasin getMagasin() {
+	    return magasin;
+	}
+
+	public void setMagasin(Magasin magasin) {
+	    this.magasin = magasin;
+	}
+
+	// Méthode pour mettre à jour la quantité de stock
+	public void updateStock(int quantite) {
+	    this.qteStock += quantite;
+	}
+
+	// Méthode toString pour afficher les informations du stock
+	@Override
+	public String toString() {
+	    return "Stock{" +
+	            "idStock=" + idStock +
+	            ", qteStock=" + qteStock +
+	            ", dateStock=" + dateStock +
+	            ", nombre de produits=" + produits.size() +
+	            ", magasin=" + (magasin != null ? magasin.getNomMag() : "Aucun") +
+	            '}';
+	}
+
 }

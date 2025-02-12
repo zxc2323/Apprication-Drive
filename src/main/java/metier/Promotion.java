@@ -2,6 +2,8 @@ package metier;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name="Promotion")
 public class Promotion {
@@ -25,6 +27,9 @@ public class Promotion {
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date date_fin;
 	
+	@OneToMany(mappedBy="promotion")
+	private Set<Produit> produits = new HashSet<>();
+	
 	public Promotion() {}
 	
 	public Promotion(String type, int valeur, Date datedeb, Date datefin) {
@@ -33,8 +38,8 @@ public class Promotion {
 		this.date_deb = datedeb; 
 		this.date_fin = datefin;
 	}
-	
-	// Getter et Setter pour idPromo
+
+ // Getter et Setter pour idPromo
     public int getIdPromo() {
         return idPromo;
     }
@@ -66,8 +71,8 @@ public class Promotion {
         return date_deb;
     }
 
-    public void setDateDeb(Date date_deb) {
-        this.date_deb = date_deb;
+    public void setDateDeb(Date dateDeb) {
+        this.date_deb = dateDeb;
     }
 
     // Getter et Setter pour date_fin
@@ -75,7 +80,48 @@ public class Promotion {
         return date_fin;
     }
 
-    public void setDateFin(Date date_fin) {
-        this.date_fin = date_fin;
+    public void setDateFin(Date dateFin) {
+        this.date_fin = dateFin;
     }
+
+    // Getter et Setter pour produits
+    public Set<Produit> getProduits() {
+        return produits;
+    }
+
+    public void setProduits(Set<Produit> produits) {
+        this.produits = produits;
+    }
+
+    // Méthode pour ajouter un produit à la promotion
+    public void addProduit(Produit produit) {
+        this.produits.add(produit);
+        produit.setPromotion(this);
+    }
+
+    // Méthode pour supprimer un produit de la promotion
+    public void removeProduit(Produit produit) {
+        this.produits.remove(produit);
+        produit.setPromotion(null);
+    }
+
+    // Méthode pour vérifier si une promotion est toujours valide
+    public boolean estToujoursValide() {
+        Date today = new Date();
+        return (today.after(date_deb) || today.equals(date_deb)) && today.before(date_fin);
+    }
+
+    // Méthode pour afficher les détails de la promotion
+    @Override
+    public String toString() {
+        return "Promotion{" +
+                "id=" + idPromo +
+                ", type='" + typePromo + '\'' +
+                ", valeur=" + valeurPromo +
+                ", date_deb=" + date_deb +
+                ", date_fin=" + date_fin +
+                ", nombre de produits affectés=" + produits.size() +
+                '}';
+    }
+
 }
