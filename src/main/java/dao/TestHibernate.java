@@ -21,11 +21,32 @@ public class TestHibernate
 	 * Programme de test.
 	 */
 	public static void main(String[] args) {
-	    try {
-	    	// Code pour insérer des données en clé étrangères 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+		 try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+		        Transaction t = session.beginTransaction();
+
+		        for (int i = 1; i <= 10; i++) {
+		            // Charger le produit, la catégorie et le rayon correspondants à l'ID i
+		            Produit produit = session.get(Produit.class, i);
+		            Categorie categorie = session.get(Categorie.class, i);
+		            Rayon rayon = session.get(Rayon.class, i);
+
+		            // Vérifier si les entités existent bien
+		            if (produit != null && categorie != null && rayon != null) {
+		                // Assigner la catégorie et le rayon au produit
+		                produit.setCategorie(categorie);
+		                produit.setRayon(rayon);
+
+		                // Mettre à jour le produit en base de données
+		                session.update(produit);
+		            } else {
+		                System.out.println("Erreur : Produit, Catégorie ou Rayon introuvable pour l'ID " + i);
+		            }
+		        }
+
+		        t.commit(); // Valider toutes les mises à jour en une seule transaction
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 	}
 	
 	/*
