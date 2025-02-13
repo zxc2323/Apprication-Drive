@@ -1,24 +1,25 @@
 package dao;
 
-import java.util.List;
-
+import java.util.*;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import metier.Rayon;
 import org.hibernate.query.Query;
 
-import metier.Rayon;
-
 public class RayonDAO {
+    public static List<Rayon> getAllRayons() throws Exception {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM Rayon";
+            Query<Rayon> query = session.createQuery(hql, Rayon.class);
 
-	public List<Rayon> findAllRayon(){
-		try (Session session = HibernateUtil.getSessionFactory().openSession()){
-			String hql = "from Rayon";
-			Query query = session.createQuery(hql,Rayon.class);
-			return query.list();
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
-		}
-	}
-}
+            List<Rayon> result = query.list();
+            System.out.println("Rayons trouvés: " + result.size());
+            return result;
+        } catch (Exception e) {
+            System.err.println("Erreur Hibernate dans RayonDAO: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    }
+
