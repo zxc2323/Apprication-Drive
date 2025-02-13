@@ -36,6 +36,9 @@ function pdtMotCle()
     xhr.send()
 }
 
+function afficherRayon() {
+    //alert("cool")
+}
 
 
 
@@ -49,4 +52,5 @@ function pdtMotCle()
 //Detecter l'action utilisateur
 document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("saisie").addEventListener("keyup",pdtMotCle);
+    document.getElementById("bt_rayon").addEventListener("click",afficherRayon);
 });
