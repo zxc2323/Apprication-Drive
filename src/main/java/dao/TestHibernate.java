@@ -22,7 +22,7 @@ public class TestHibernate
 	 * Programme de test.
 	 */
 	public static void main(String[] args) {
-<<<<<<< HEAD
+
 		String[] descriptions = {
 	            "Courses de la semaine", "Produits pour le dîner", "Liste pour l’anniversaire",
 	            "Ingrédients pour le gâteau", "Stock pour le mois", "Repas équilibré",
@@ -35,9 +35,7 @@ public class TestHibernate
 	            "Épicerie fine", "Stock de la salle de bain", "Vêtements et accessoires",
 	            "Fournitures pour le bureau", "Jeux et divertissements", "Achats de Noël"
 	        };
-=======
-	
->>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
+
 
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            session.beginTransaction();
@@ -117,14 +115,7 @@ public class TestHibernate
 			return e;
 		}
 	}
-<<<<<<< HEAD
-	
 
-	
-=======
-
-
->>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
 	/*
 	 * Méthodes pour utiliser la classe ContenirId
 	 */
@@ -200,13 +191,7 @@ public class TestHibernate
 			return e;
 		}
 	}
-<<<<<<< HEAD
-	
-	
-=======
 
-	
->>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
 	/*
 	 * Méthodes pour utiliser la classe Categorie
 	 */
@@ -285,12 +270,10 @@ public class TestHibernate
 	/*
 	 * Méthodes pour utiliser la classe Stock
 	 */
-<<<<<<< HEAD
+
 	public static Stock createStock(int qteStock, Date dateStock) {
 		Stock e = new Stock(qteStock, dateStock); 
-=======
-	
->>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
+
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			Transaction t = session.beginTransaction();
 			session.save(e); 
