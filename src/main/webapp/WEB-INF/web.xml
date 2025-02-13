@@ -5,14 +5,25 @@
 
     <display-name>TestApp</display-name>
 
-    <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>com.example.TestServlet</servlet-class>
-    </servlet>
+<!--    <servlet>-->
+<!--        <servlet-name>TestServlet</servlet-name>-->
+<!--        <servlet-class>com.example.TestServlet</servlet-class>-->
+<!--    </servlet>-->
 
-    <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>TestServlet</servlet-name>-->
+<!--        <url-pattern>/test</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+
+        <servlet>
+            <servlet-name>VisualiserPanier</servlet-name>
+            <jsp-file>/jsp/VisualiserPanier.jsp</jsp-file>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>VisualiserPanier</servlet-name>
+            <url-pattern>/visualiserpanier</url-pattern>
+        </servlet-mapping>
 
 </web-app>
