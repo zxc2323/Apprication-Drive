@@ -4,6 +4,7 @@ package dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -21,33 +22,47 @@ public class TestHibernate
 	 * Programme de test.
 	 */
 	public static void main(String[] args) {
-		 try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-		        Transaction t = session.beginTransaction();
+		String[] descriptions = {
+	            "Courses de la semaine", "Produits pour le dîner", "Liste pour l’anniversaire",
+	            "Ingrédients pour le gâteau", "Stock pour le mois", "Repas équilibré",
+	            "Courses express", "Achats pour la famille", "Liste spéciale promo",
+	            "Préparation du week-end", "Articles pour la cuisine", "Boissons et snacks",
+	            "Fruits et légumes bio", "Essentiels du petit-déjeuner", "Courses de dernière minute",
+	            "Courses pour la soirée", "Recharge en produits ménagers", "Ravitaillement en viande",
+	            "Besoin de produits frais", "Liste pour l’été", "Spécial repas en extérieur",
+	            "Préparation de pique-nique", "Courses pour la rentrée", "Articles de santé",
+	            "Épicerie fine", "Stock de la salle de bain", "Vêtements et accessoires",
+	            "Fournitures pour le bureau", "Jeux et divertissements", "Achats de Noël"
+	        };
 
-		        for (int i = 1; i <= 10; i++) {
-		            // Charger le produit, la catégorie et le rayon correspondants à l'ID i
-		            Produit produit = session.get(Produit.class, i);
-		            Categorie categorie = session.get(Categorie.class, i);
-		            Rayon rayon = session.get(Rayon.class, i);
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            session.beginTransaction();
 
-		            // Vérifier si les entités existent bien
-		            if (produit != null && categorie != null && rayon != null) {
-		                // Assigner la catégorie et le rayon au produit
-		                produit.setCategorie(categorie);
-		                produit.setRayon(rayon);
+	            int userId = 16; // Commence avec le premier utilisateur valide
 
-		                // Mettre à jour le produit en base de données
-		                session.update(produit);
-		            } else {
-		                System.out.println("Erreur : Produit, Catégorie ou Rayon introuvable pour l'ID " + i);
-		            }
-		        }
+	            for (int i = 1; i <= 30; i++) { // Pour chaque liste de course
+	                ListeCourse liste = session.get(ListeCourse.class, i);
+	                if (liste != null) {
+	                    liste.setDescrPostIt(descriptions[i - 1]); // Attribuer une description
 
-		        t.commit(); // Valider toutes les mises à jour en une seule transaction
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
+	                    Utilisateur utilisateur = session.get(Utilisateur.class, userId);
+	                    if (utilisateur != null) {
+	                        liste.setUtilisateur(utilisateur);
+	                    }
+
+	                    session.update(liste);
+
+	                    // Boucle entre les ID 16 et 36
+	                    userId = (userId < 36) ? userId + 1 : 16;
+	                }
+	            }
+
+	            session.getTransaction().commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 	}
+
 	
 	/*
 	 *  Méthodes pour utiliser la classe Produit
@@ -99,30 +114,7 @@ public class TestHibernate
 		}
 	}
 	
-	/*
-	 * Méthodes pour utiliser la classe Contenir
-	 */
-	public static Contenir createContenir(Panier panier, Produit produit, int quantite) {
-		Contenir e = new Contenir(panier, produit, quantite); 
-		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-			Transaction t = session.beginTransaction();
-			session.save(e); 
-			t.commit(); 
-			session.close(); 
-		} catch (Exception ex) {
-	        ex.printStackTrace();
-	    }
-		return e;
-	}
-	
-	public static Contenir loadContenir(int id) {
-		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-			session.beginTransaction();
-			Contenir e = session.get(Contenir.class, id);
-			session.close();
-			return e; 
-		}
-	}
+
 	
 	/*
 	 * Méthodes pour utiliser la classe ContenirId
@@ -200,30 +192,6 @@ public class TestHibernate
 		}
 	}
 	
-	/*
-	 * Méthodes pour utiliser la classe Panier
-	 */
-	public static Panier createPanier() {
-		Panier e = new Panier(); 
-		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-			Transaction t = session.beginTransaction();
-			session.save(e); 
-			t.commit(); 
-			session.close(); 
-		} catch (Exception ex) {
-	        ex.printStackTrace();
-	    }
-		return e;
-	} 
-	
-	public static Panier loadPanier(int id) {
-		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-			session.beginTransaction();
-			Panier e = session.get(Panier.class, id);
-			session.close();
-			return e; 
-		}
-	}
 	
 	/*
 	 * Méthodes pour utiliser la classe Categorie
@@ -303,8 +271,8 @@ public class TestHibernate
 	/*
 	 * Méthodes pour utiliser la classe Stock
 	 */
-	public static Stock createStock(Set<Produit> produits, Magasin magasin, int qteStock, Date dateStock) {
-		Stock e = new Stock(produits, magasin, qteStock, dateStock); 
+	public static Stock createStock(int qteStock, Date dateStock) {
+		Stock e = new Stock(qteStock, dateStock); 
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			Transaction t = session.beginTransaction();
 			session.save(e); 

@@ -28,11 +28,11 @@ public class HibernateUtil
 			configuration.addAnnotatedClass(metier.Categorie.class);
 			configuration.addAnnotatedClass(metier.Utilisateur.class);
 			configuration.addAnnotatedClass(metier.Commande.class);
-			configuration.addAnnotatedClass(metier.Contenir.class);
-			configuration.addAnnotatedClass(metier.ContenirId.class);
+			// configuration.addAnnotatedClass(metier.Contenir.class);
+			// configuration.addAnnotatedClass(metier.ContenirId.class);
 			configuration.addAnnotatedClass(metier.ListeCourse.class);
 			configuration.addAnnotatedClass(metier.Magasin.class);
-			configuration.addAnnotatedClass(metier.Panier.class);
+			// configuration.addAnnotatedClass(metier.Panier.class);
 			configuration.addAnnotatedClass(metier.Produit.class);
 			configuration.addAnnotatedClass(metier.Promotion.class);
 			configuration.addAnnotatedClass(metier.Rayon.class);

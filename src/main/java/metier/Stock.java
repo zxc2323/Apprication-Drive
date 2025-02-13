@@ -29,9 +29,7 @@ public class Stock {
 	
 	public Stock() {}
 	
-	public Stock(Set<Produit> produits, Magasin magasin, int qteStock, Date dateStock) {
-        this.produits = produits;
-        this.magasin = magasin;
+	public Stock(int qteStock, Date dateStock) {
         this.qteStock = qteStock;
         this.dateStock = dateStock;
     }

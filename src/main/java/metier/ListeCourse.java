@@ -16,6 +16,9 @@ public class ListeCourse {
 	@Column(name="nomListe")
 	private String nomListe;
 	
+	@Column(name="descriptionPostIt")
+	private String descrPostIt;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="CodeUtil")
 	private Utilisateur utilisateur;
@@ -77,6 +80,14 @@ public class ListeCourse {
 	    produit.setListeCourse(null);
 	}
 
+	public String getDescrPostIt() {
+		return this.descrPostIt;
+	}
+	
+	public void setDescrPostIt(String descr) {
+		this.descrPostIt = descr;
+	}
+	
 	// Méthode toString pour afficher les informations de la liste
 	@Override
 	public String toString() {
