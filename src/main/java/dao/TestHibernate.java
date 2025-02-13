@@ -22,6 +22,7 @@ public class TestHibernate
 	 * Programme de test.
 	 */
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		String[] descriptions = {
 	            "Courses de la semaine", "Produits pour le dîner", "Liste pour l’anniversaire",
 	            "Ingrédients pour le gâteau", "Stock pour le mois", "Repas équilibré",
@@ -34,6 +35,9 @@ public class TestHibernate
 	            "Épicerie fine", "Stock de la salle de bain", "Vêtements et accessoires",
 	            "Fournitures pour le bureau", "Jeux et divertissements", "Achats de Noël"
 	        };
+=======
+	
+>>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
 
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            session.beginTransaction();
@@ -110,12 +114,17 @@ public class TestHibernate
 			session.beginTransaction();
 			Commande e = session.get(Commande.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
+<<<<<<< HEAD
 	
 
 	
+=======
+
+
+>>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
 	/*
 	 * Méthodes pour utiliser la classe ContenirId
 	 */
@@ -137,11 +146,11 @@ public class TestHibernate
 			session.beginTransaction();
 			ContenirId e = session.get(ContenirId.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
-	
-	
+
+
 	/*
 	 * Méthodes pour utiliser la classe ListeCourse
 	 */
@@ -157,16 +166,16 @@ public class TestHibernate
 	    }
 		return e;
 	}
-	
+
 	public static ListeCourse loadListeCourse(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			ListeCourse e = session.get(ListeCourse.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
-	
+
 	/*
 	 * Méthodes pour utiliser la classe Magasin
 	 */
@@ -182,17 +191,22 @@ public class TestHibernate
 	    }
 		return e;
 	}
-	
+
 	public static Magasin loadMagasin(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			Magasin e = session.get(Magasin.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+	
+>>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
 	/*
 	 * Méthodes pour utiliser la classe Categorie
 	 */
@@ -208,16 +222,16 @@ public class TestHibernate
 	    }
 		return e;
 	} 
-	
+
 	public static Categorie loadCategorie(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			Categorie e = session.get(Categorie.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
-	
+
 	/*
 	 * Méthodes pour utiliser la classe Promotion
 	 */
@@ -233,16 +247,16 @@ public class TestHibernate
 	    }
 		return e;
 	} 
-	
+
 	public static Promotion loadPromotion(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			Promotion e = session.get(Promotion.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
-	
+
 	/*
 	 * Méthodes pour utiliser la classe Rayon
 	 */
@@ -258,21 +272,25 @@ public class TestHibernate
 	    }
 		return e;
 	}
-	
+
 	public static Rayon loadRayon(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			Rayon e = session.get(Rayon.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
-	
+
 	/*
 	 * Méthodes pour utiliser la classe Stock
 	 */
+<<<<<<< HEAD
 	public static Stock createStock(int qteStock, Date dateStock) {
 		Stock e = new Stock(qteStock, dateStock); 
+=======
+	
+>>>>>>> ef9b4a89b8fdc193c419b5846058d10ed289c60b
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			Transaction t = session.beginTransaction();
 			session.save(e); 
@@ -283,16 +301,16 @@ public class TestHibernate
 	    }
 		return e;
 	}
-	
+
 	public static Stock loadStock(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			Stock e = session.get(Stock.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
-	
+
 	/*
 	 * Méthodes pour utiliser la classe Utilisateur
 	 */
@@ -308,13 +326,13 @@ public class TestHibernate
 	    }
 		return e;
 	}
-	
+
 	public static Utilisateur loadUtilisateur(int id) {
 		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
 			session.beginTransaction();
 			Utilisateur e = session.get(Utilisateur.class, id);
 			session.close();
-			return e; 
+			return e;
 		}
 	}
 } /*----- Fin de la classe TestHibernate -----*/
