@@ -25,6 +25,9 @@ public class Magasin {
 	@OneToMany(mappedBy="magasin")
 	private Set<Commande> commandes = new HashSet<>();
 	
+	@OneToMany(mappedBy="magasinTravail")
+	private Set<Utilisateur> utilisateurs = new HashSet<>();
+	
 	public Magasin() {}
 	
 	public Magasin(String nom, String adr) {
@@ -100,6 +103,27 @@ public class Magasin {
 	    this.commandes.remove(commande);
 	    commande.setMagasin(null);
 	}
+	
+	// Getter et Setter pour utilsateurs
+		public Set<Utilisateur> getUtilisateurs() {
+		    return this.utilisateurs;
+		}
+
+		public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+		    this.utilisateurs = utilisateurs;
+		}
+
+		// Méthode pour ajouter une commande
+		public void addUtilisateur(Utilisateur utilisateur) {
+		    this.utilisateurs.add(utilisateur);
+		    utilisateur.setMagasinTravail(this);
+		}
+
+		// Méthode pour supprimer une commande
+		public void removeUtilisateur(Utilisateur utilisateur) {
+		    this.utilisateurs.remove(utilisateur);
+		    utilisateur.setMagasinTravail(null);
+		}
 
 	// Méthode toString pour afficher les informations du magasin
 	@Override

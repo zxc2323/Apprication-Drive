@@ -22,6 +22,10 @@ public class Commande {
 	private Utilisateur utilisateur;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="CodePreparateur")
+	private Utilisateur preparateur;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="CodeMag")
 	private Magasin magasin;
 	
@@ -59,6 +63,15 @@ public class Commande {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 	    this.utilisateur = utilisateur;
+	}
+	
+	// Getter et Setter pour preparateur
+	public Utilisateur getPreparateur() {
+	    return utilisateur;
+	}
+
+	public void setPreparateur(Utilisateur preparateur) {
+	    this.preparateur = preparateur;
 	}
 
 	// Getter et Setter pour magasin

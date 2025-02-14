@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>List de Course</title>
-<link rel="stylesheet" href="./css/main.css" />
+<link rel="stylesheet" href="./css/LCMain.css" />
 </head>
 <body>
 
@@ -79,7 +79,7 @@
 <br>
 <br>
 
-<script src="./js/main.js"></script>
+<script src="./js/LCMain.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 </html>

@@ -28,11 +28,18 @@ public class Utilisateur {
 		@Column(name="motDePasseUtil", nullable = false)
 		private String motDePasseUtil; 
 		
+		@Column(name="rôleUtil", nullable = false)
+		private Role role;
+		
+		@ManyToOne(fetch = FetchType.EAGER)
+		@JoinColumn(name="CodeMag")
+		private Magasin magasinTravail;
+		
 		@OneToMany(mappedBy="utilisateur")
 		private Set<Commande> commandes = new HashSet<>();
 		
-		@OneToMany(mappedBy="utilisateur")
-		private Set<Panier> paniers = new HashSet<>();
+		@OneToMany(mappedBy="preparateur")
+		private Set<Commande> commandesPrepare = new HashSet<>();
 		
 		@OneToMany(mappedBy="utilisateur")
 		private Set<ListeCourse> liste_courses = new HashSet<>();
@@ -100,6 +107,14 @@ public class Utilisateur {
 		public void setMotDePasseUtil(String motDePasseUtil) {
 		    this.motDePasseUtil = motDePasseUtil;
 		}
+		
+		public Role getRole() {
+			return this.role;
+		}
+		
+		public void setRole(Role role) {
+			this.role = role;
+		}
 
 		// Getter et Setter pour commandes
 		public Set<Commande> getCommandes() {
@@ -121,26 +136,34 @@ public class Utilisateur {
 		    this.commandes.remove(commande);
 		    commande.setUtilisateur(null);
 		}
+		
+		// Getter et Setter pour commandes
+				public Set<Commande> getCommandesPrepare() {
+				    return this.commandesPrepare;
+				}
 
-		// Getter et Setter pour paniers
-		public Set<Panier> getPaniers() {
-		    return paniers;
+				public void setCommandesPrepare(Set<Commande> commandes) {
+				    this.commandesPrepare = commandes;
+				}
+
+				// Méthode pour ajouter une commande
+				public void addCommandePrepare(Commande commande) {
+				    this.commandesPrepare.add(commande);
+				    commande.setUtilisateur(this);
+				}
+
+				// Méthode pour supprimer une commande
+				public void removeCommandePrepare(Commande commande) {
+				    this.commandesPrepare.remove(commande);
+				    commande.setUtilisateur(null);
+				}
+		
+		public Magasin getMagasinTravail() {
+			return this.magasinTravail;
 		}
-
-		public void setPaniers(Set<Panier> paniers) {
-		    this.paniers = paniers;
-		}
-
-		// Méthode pour ajouter un panier
-		public void addPanier(Panier panier) {
-		    this.paniers.add(panier);
-		    panier.setUtilisateur(this);
-		}
-
-		// Méthode pour supprimer un panier
-		public void removePanier(Panier panier) {
-		    this.paniers.remove(panier);
-		    panier.setUtilisateur(null);
+		
+		public void setMagasinTravail(Magasin mag) {
+			this.magasinTravail = mag;
 		}
 
 		// Getter et Setter pour liste_courses
@@ -174,7 +197,6 @@ public class Utilisateur {
 		            ", adresse='" + adresseUtil + '\'' +
 		            ", mail='" + mailUtil + '\'' +
 		            ", nombre de commandes=" + (commandes != null ? commandes.size() : 0) +
-		            ", nombre de paniers=" + (paniers != null ? paniers.size() : 0) +
 		            ", nombre de listes de courses=" + (liste_courses != null ? liste_courses.size() : 0) +
 		            '}';
 		}

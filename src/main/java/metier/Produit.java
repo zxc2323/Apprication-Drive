@@ -54,10 +54,6 @@ public class Produit {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="CodeStock")
 	private Stock stock;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="CodePanier")
-	private Panier panier;
 		
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="CodeListeCourse")
@@ -180,15 +176,6 @@ public class Produit {
 
 	public void setStock(Stock stock) {
 	    this.stock = stock;
-	}
-
-	// Getter et Setter pour panier
-	public Panier getPanier() {
-	    return panier;
-	}
-
-	public void setPanier(Panier panier) {
-	    this.panier = panier;
 	}
 
 	// Getter et Setter pour liste_course
