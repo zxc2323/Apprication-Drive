@@ -37,12 +37,29 @@ function pdtMotCle()
 }
 
 function afficherRayon() {
-    //alert("cool")
+    var selectRayon = document.getElementById("lrayon");
+
+    fetch(`${window.location.origin}/ProjetDAI_war/rayons`)
+        .then(response => response.text())
+        .then(xmlStr => {
+            let parser = new DOMParser();
+            let xmlDoc = parser.parseFromString(xmlStr, "application/xml");
+
+            let rayons = xmlDoc.getElementsByTagName("rayon");
+            selectRayon.innerHTML = "<option>-----</option>"; // 先清空下拉框
+            console.log(rayons)
+            for (let i = 0; i < rayons.length; i++) {
+                let nom = rayons[i].getElementsByTagName("nom")[0].firstChild.nodeValue;
+                let id = rayons[i].getElementsByTagName("id")[0].firstChild.nodeValue;
+
+                let option = document.createElement("option");
+                option.value = id;
+                option.textContent = nom;
+                selectRayon.appendChild(option);
+            }
+        })
+        .catch(error => console.error("Erreur lors du chargement des rayons:", error));
 }
-
-
-
-
 
 
 
@@ -53,4 +70,5 @@ function afficherRayon() {
 document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("saisie").addEventListener("keyup",pdtMotCle);
     document.getElementById("bt_rayon").addEventListener("click",afficherRayon);
+
 });

@@ -46,8 +46,22 @@
 									<div id="zoneff"></div>
 								</div><br>
 								<b>Rayon</b>
-								<select id="lrayon"><option>-----</option></select>
-								<input id="bt_rayon" type="button" value="Afficher" />
+								<select id="lrayon">
+									<option value="">-----</option>
+								</select>
+								<input id="bt_rayon" type="button" value="Afficher" onclick="afficherProduits()" />
+
+								<script>
+									function afficherProduits() {
+										var rayonId = document.getElementById("lrayon").value;
+										if (rayonId) {
+											window.location.href = "ProduitsParRayonServlet?rayonId=" + rayonId;
+										} else {
+											alert("Veuillez sélectionner un rayon.");
+										}
+									}
+								</script>
+
 								<div id="pdt_rayon"></div><br>
 
 								<b>Catégorie</b>

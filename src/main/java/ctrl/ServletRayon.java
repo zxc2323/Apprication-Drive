@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @WebServlet("/rayons")
-public class ServletRayon {
+public class ServletRayon extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/xml;charset=UTF-8");
@@ -27,16 +27,17 @@ public class ServletRayon {
         try {
             // 获取所有的 Rayon
             RayonDAO rayonDAO = new RayonDAO();
-            List<Rayon> rayons = RayonDAO.getAllRayons();
+            List<Rayon> rayons = rayonDAO.getAllRayons();
 
             try (PrintWriter out = response.getWriter()) {
                 out.println("<?xml version=\"1.0\"?>");
                 out.println("<liste_rayons>");
 
                 for (Rayon rayon : rayons) {
-                    out.println("    <rayon>");
-                    out.println("        <nom>" + rayon.getNomRayon() + "</nom>");
-                    out.println("    </rayon>");
+                    out.println("<rayon>");
+                    out.println("<nom>" + rayon.getNomRayon() + "</nom>");
+                    out.println("<id>" + rayon.getIdRayon() + "</id>");
+                    out.println("</rayon>");
                 }
 
                 out.println("</liste_rayons>");

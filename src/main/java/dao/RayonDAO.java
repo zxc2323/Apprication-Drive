@@ -7,7 +7,7 @@ import metier.Rayon;
 import org.hibernate.query.Query;
 
 public class RayonDAO {
-    public static List<Rayon> getAllRayons() throws Exception {
+    public  List<Rayon> getAllRayons() throws Exception {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "FROM Rayon";
             Query<Rayon> query = session.createQuery(hql, Rayon.class);
@@ -21,5 +21,8 @@ public class RayonDAO {
             return new ArrayList<>();
         }
     }
+
+
+
     }
 

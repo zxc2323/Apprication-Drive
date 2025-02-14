@@ -27,5 +27,20 @@ public class ProduitDAO {
             return new ArrayList<>();
         }
     }
+
+    public List<Produit> getProduitsParRayon(int rayonId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM Produit WHERE rayon.id = :rayonId";
+            Query<Produit> query = session.createQuery(hql, Produit.class);
+            query.setParameter("rayonId", rayonId);
+
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+
 }
 
