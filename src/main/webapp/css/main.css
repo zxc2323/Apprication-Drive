@@ -1,0 +1,277 @@
+ body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    flex-direction: column;
+  }
+#nav {
+		background-color: #282828;
+		text-align: center;
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 10000;
+		cursor: default;
+		height: 5em;
+		line-height: 3.5em;
+	}
+
+#nav ul {
+	margin-bottom: 0;
+	list-style: none;
+	padding-left: 0;
+}
+
+#nav li {
+	display: inline-block;
+	padding-left: 0;
+}
+
+#nav a {
+	-moz-transition: background-color .2s ease-in-out;
+	-webkit-transition: background-color .2s ease-in-out;
+	-ms-transition: background-color .2s ease-in-out;
+	transition: background-color .2s ease-in-out;
+	position: relative;
+	display: block;
+	color: #fff;
+	text-decoration: none;
+	outline: 0;
+	font-weight: 600;
+	border-radius: 8px;
+	color: #fff;
+	height: 2.5em;
+	line-height: 2.5em;
+	padding: 0 1.25em;
+}
+
+#nav a:hover {
+	color: #fff !important;
+	background: #383838;
+}
+
+#nav a.active {
+	background: #484848;
+}
+
+#nav a.active:before {
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: -0.6em;
+	left: 50%;
+	margin-left: -0.75em;
+	border-left: solid 0.75em transparent;
+	border-right: solid 0.75em transparent;
+	border-top: solid 0.6em #282828;
+}
+
+.TextR, .TextB {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  margin: 5px;
+  outline: none; /* 移除聚焦时的边框 */
+}
+
+/* 搜索输入框样式 */
+.TextR {
+  width: 200px; /* 设置宽度 */
+  border-radius: 4px 0 0 4px; /* 圆角边框，左上和左下 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  transition: box-shadow 0.3s ease; /* 阴影过渡效果 */
+}
+
+/* 搜索输入框聚焦时的样式 */
+.TextR:focus {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 聚焦时增加阴影 */
+}
+
+/* 提交按钮样式 */
+.TextB {
+  background-color: #007bff; /* 按钮背景颜色 */
+  color: white; /* 按钮文字颜色 */
+  border-radius: 0 4px 4px 0; /* 圆角边框，右上和右下 */
+  cursor: pointer; /* 鼠标悬停时显示指针 */
+  transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+}
+
+/* 提交按钮鼠标悬停时的样式 */
+.TextB:hover {
+  background-color: #0056b3; /* 鼠标悬停时改变背景颜色 */
+}
+ 
+   .container {
+    display: flex; /* 使用flex布局 */
+    margin-top:180px;
+  }
+
+  .heart-image {
+    width: 200px; /* 设置图片宽度 */
+    height: auto; /* 高度自适应 */
+    margin-right: 20px; /* 图片和文字之间的间隔 */
+    animation: slideLeft 2s forwards;
+  }
+
+  .text {
+  	opacity: 0;
+  	animation: fadeIn 2s 2s forwards;
+    font-size: 24px; /* 设置文字大小 */
+  }
+
+  @keyframes slideLeft {
+    from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-300px);
+    opacity: 1; /* 在动画结束时变为完全透明 */
+  }
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateX(-100px);
+    }
+  }
+  
+  
+.table{
+	display:block;
+	margin-top:50px;
+	
+}
+ .blue-button {
+ 	margin-top:30px;
+    background-color: #007bff; /* 蓝色背景 */
+    color: white; /* 白色文字 */
+    padding: 25px 60px; /* 内边距 */
+    font-size: 16px; /* 字体大小 */
+    border: none; /* 无边框 */
+    border-radius: 7px; /* 圆角边框 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    text-align: center; /* 文字居中 */
+    text-decoration: none; /* 无下划线 */
+    display: inline-block; /* 块级元素 */
+    position: relative; /* 定位上下文 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 平滑过渡效果 */
+  }
+
+  /* 创建覆盖层以增强3D效果 */
+  .blue-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent, transparent 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3));
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* 鼠标悬停时的样式 */
+  .blue-button:hover:before {
+    opacity: 1;
+  }
+
+  .blue-button:hover {
+    transform: translateY(-3px); /* 向上轻微移动 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+  }
+
+  /* 按钮按下时的样式 */
+  .blue-button:active {
+    transform: translateY(0); /* 恢复原位 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 减少阴影 */
+  }
+
+.hover-shadow {
+  /* 初始状态下的样式 */
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* 更改鼠标光标为指针，表示可点击 */
+  width:300px;
+  height:100px;
+
+  
+}
+
+/* 鼠标悬停时的样式 */
+.hover-shadow:hover {
+  transform: translateY(-5px); /* 可选：轻微上移效果 */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* 添加阴影效果 */
+}
+.hover-shadow a {
+  text-align: center; 
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none; /* 如果你不希望链接有下划线 */
+  color: inherit; /* 保持链接颜色与<td>一致 */
+}
+
+
+
+
+.create{
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin: 20px;
+  background-color: #ffffff;
+  background-image: linear-gradient(to right, #e6e6e6, #ffffff);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.create:hover{
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.create {
+  display: none;
+}
+
+.create label {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.create input[type="text"] {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: calc(100% - 22px);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.create input[type="text"]:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.create button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-image: linear-gradient(to right, #007bff, #0056b3);
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.create button:hover {
+  background-image: linear-gradient(to right, #0056b3, #002752);
+}
+
+

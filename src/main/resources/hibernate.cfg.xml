@@ -3,7 +3,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3307/db_22006090_2</property>
