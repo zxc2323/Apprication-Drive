@@ -25,7 +25,7 @@
 
 
 <div class="container">
-  <img src="./images/taoxin.png" alt="Heart" class="heart-image">
+  <img src="./css/images/taoxin.png" alt="Heart" class="heart-image">
   <div class="text"><h1>Liste des Courses</h1></div>
 </div>
 

@@ -7,19 +7,38 @@ import metier.Rayon;
 import org.hibernate.query.Query;
 
 public class RayonDAO {
-    public static List<Rayon> getAllRayons() throws Exception {
+    public List<Rayon> getAllRayons() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "FROM Rayon";
             Query<Rayon> query = session.createQuery(hql, Rayon.class);
 
             List<Rayon> result = query.list();
-            System.out.println("Rayons trouvés: " + result.size());
             return result;
         } catch (Exception e) {
-            System.err.println("Erreur Hibernate dans RayonDAO: " + e.getMessage());
             e.printStackTrace();
-            return new ArrayList<>();
+            return null;
         }
     }
+    
+    public Rayon getRayonById(int id){
+    	try(Session session=HibernateUtil.getSessionFactory().openSession()){
+    		String hql = "from Rayon where CodeRay=:id";
+    		Query<Rayon> query = session.createQuery(hql,Rayon.class);
+    		query.setParameter("id", id); // 绑定参数
+    		Rayon result = query.uniqueResult(); // 获取唯一结果
+    		if (result == null) {
+    		    System.out.println("No Rayon found with ID: " + id);
+    		    return null;
+    		}
+    		return result;
+    		
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		e.printStackTrace();
+    		return null;
+		}
+    }
+    
+    
     }
 
