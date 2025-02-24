@@ -46,7 +46,7 @@ public class Utilisateur {
 		
 		public Utilisateur() {}
 		
-		public Utilisateur(String prenom, String nom, String adresse, String mail, String mdp) {
+		public Utilisateur( String mail, String adresse,String nom,String prenom,String mdp) {
 			this.prenomUtil = prenom; 
 			this.nomUtil = nom; 
 			this.adresseUtil = adresse; 
