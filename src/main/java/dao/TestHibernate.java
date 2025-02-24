@@ -3,7 +3,10 @@ package dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -22,44 +25,27 @@ public class TestHibernate
 	 * Programme de test.
 	 */
 	public static void main(String[] args) {
-
-		String[] descriptions = {
-	            "Courses de la semaine", "Produits pour le dîner", "Liste pour l’anniversaire",
-	            "Ingrédients pour le gâteau", "Stock pour le mois", "Repas équilibré",
-	            "Courses express", "Achats pour la famille", "Liste spéciale promo",
-	            "Préparation du week-end", "Articles pour la cuisine", "Boissons et snacks",
-	            "Fruits et légumes bio", "Essentiels du petit-déjeuner", "Courses de dernière minute",
-	            "Courses pour la soirée", "Recharge en produits ménagers", "Ravitaillement en viande",
-	            "Besoin de produits frais", "Liste pour l’été", "Spécial repas en extérieur",
-	            "Préparation de pique-nique", "Courses pour la rentrée", "Articles de santé",
-	            "Épicerie fine", "Stock de la salle de bain", "Vêtements et accessoires",
-	            "Fournitures pour le bureau", "Jeux et divertissements", "Achats de Noël"
-	        };
-
-
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            session.beginTransaction();
+	           	            
+	            Random random = new Random();
+	            Calendar calendar = Calendar.getInstance();
 
-	            int userId = 16; // Commence avec le premier utilisateur valide
+	            for (int id = 1; id <= 37; id++) {
+	                Commande commande = session.get(Commande.class, id);
+	                if (commande != null) {
+	                    // Générer une date aléatoire dans les 30 derniers jours
+	                    calendar.setTime(new Date());
+	                    calendar.add(Calendar.DAY_OF_MONTH, -random.nextInt(30));
+	                    Date randomDate = calendar.getTime();
 
-	            for (int i = 1; i <= 30; i++) { // Pour chaque liste de course
-	                ListeCourse liste = session.get(ListeCourse.class, i);
-	                if (liste != null) {
-	                    liste.setDescrPostIt(descriptions[i - 1]); // Attribuer une description
-
-	                    Utilisateur utilisateur = session.get(Utilisateur.class, userId);
-	                    if (utilisateur != null) {
-	                        liste.setUtilisateur(utilisateur);
-	                    }
-
-	                    session.update(liste);
-
-	                    // Boucle entre les ID 16 et 36
-	                    userId = (userId < 36) ? userId + 1 : 16;
+	                    // Mettre à jour la commande avec cette date
+	                    commande.setDateRetrait(randomDate);
+	                    session.update(commande);
 	                }
 	            }
 
-	            session.getTransaction().commit();
+	             session.getTransaction().commit();
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }

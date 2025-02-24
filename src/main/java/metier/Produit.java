@@ -33,6 +33,9 @@ public class Produit {
 	@Column(name="conditionnementPro")
 	private String conditionnementPro;
 	
+	@Column(name="urlImage")
+	private String urlImage;
+	
 	//Clé étrangère CodeCate dans Produit
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CodeCate")
@@ -62,12 +65,23 @@ public class Produit {
 	public Produit() {}
 	
 	public Produit(String lib, double PrixU, double Prixkg, String nutriScore, double Pds, String condition) {
+		this.libellePro = lib;
+		this.PrixUnitaire = PrixU;
+		this.Prix_kg = Prixkg;
+		this.Nutriscore = nutriScore;
+		this.PoidsPro = Pds;
+		this.conditionnementPro = condition; 
+	}	
+	
+	public Produit(int idPro, String urlImage, String lib, double PrixU, double Prixkg, String nutriScore, double Pds, String condition) {
+		this.idPro = idPro;
 		this.libellePro = lib; 
 		this.PrixUnitaire = PrixU; 
 		this.Prix_kg = Prixkg; 
 		this.Nutriscore = nutriScore; 
 		this.PoidsPro = Pds; 
 		this.conditionnementPro = condition; 
+		this.urlImage = urlImage;
 	}
 
 	// Getter et Setter pour idPro
@@ -176,6 +190,14 @@ public class Produit {
 
 	public void setStock(Stock stock) {
 	    this.stock = stock;
+	}
+	
+	public String getURLImage() {
+		return this.urlImage;
+	}
+	
+	public void setURLImage(String image) {
+		this.urlImage = image;
 	}
 
 	// Getter et Setter pour liste_course

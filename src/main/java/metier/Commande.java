@@ -1,5 +1,6 @@
 package metier;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,10 @@ public class Commande {
 	@Enumerated(EnumType.STRING)
 	@Column(name="etatCommande", nullable = false)
 	private Etat etatCommande;
+	
+	@Column(name="dateRetraitCommande")
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date dateRetraitCommande; 
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="CodeUtil")
@@ -36,6 +41,20 @@ public class Commande {
 	
 	public Commande(Etat etat) {
 		this.etatCommande = etat;
+	}
+	
+	public Commande(int idCommande, Etat etat, Date dateRetrait) {
+		this.etatCommande = etat;
+		this.idCommande = idCommande; 
+		this.dateRetraitCommande = dateRetrait;
+	}
+	
+	public Date getDateRetrait() {
+		return this.dateRetraitCommande;
+	}
+	
+	public void setDateRetrait(Date date) {
+		this.dateRetraitCommande = date;
 	}
 	
 	// Getter et Setter pour idCommande
